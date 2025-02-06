@@ -1,0 +1,6 @@
+name: RoguelikeAdventure
+author: SuperMaxime38, PoutreCosmique
+version: 0.1.0
+main: fr.poutrecosmique.roguelike.RoguelikeAdventure
+description: Yay
+api-version: 1.13
