@@ -10,22 +10,20 @@ import fr.poutrecosmique.roguelike.items.ItemType;
 
 public class NoobSword extends ItemObject{
 	
-	public static ItemObject sword;
-	
 	public NoobSword() {
-		sword = new ItemObject();
-		sword.setIdentifier(ItemIdentifier.NOOB_SWORD);
-		sword.setName("Noob Sword");
-		sword.setItemStack(new ItemStack(Material.WOODEN_SWORD));
-		sword.setRarity(ItemRarity.COMMON);
-		sword.setType(ItemType.MELEE);
-		sword.setDamage(10);
-		sword.setItemDesc("§fRien de particulier.");
-		sword.init();
+		super();
+		this.setIdentifier(ItemIdentifier.NOOB_SWORD);
+		this.setName("Noob Sword");
+		this.setItemStack(new ItemStack(Material.WOODEN_SWORD));
+		this.setRarity(ItemRarity.COMMON);
+		this.setType(ItemType.MELEE);
+		this.setDamage(10);
+		this.setItemDesc("§fRien de particulier.");
+		this.init();
 	}
 	
 	public ItemStack getItem() {
-		return sword.getItemStack();
+		return this.getItemStack();
 	}
 
 }

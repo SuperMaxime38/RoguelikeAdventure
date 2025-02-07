@@ -8,6 +8,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import fr.poutrecosmique.roguelike.utils.Stat;
+
 public class ItemObject {
 	protected ItemRarity rarity = ItemRarity.UNKNOWN;
 	protected ItemStack itemStack = new ItemStack(Material.AIR);
@@ -19,14 +21,7 @@ public class ItemObject {
 	protected int itemIdentifier = -1;
 	
 	// Stats
-	protected int damage = 0;
-	protected int attack = 0;
-	protected int critical_chance = 0;
-	protected int critical_damage = 0;
-	protected int health = 0;
-	protected int defense = 0;
-	protected int speed = 0;
-	protected int solaris = 0;
+	protected Stat stats = new Stat();
 	
 	public void setName(String name) {
 		this.name = name;
@@ -61,29 +56,33 @@ public class ItemObject {
 	
 	//SETTERS OF STATS
 	
+	public void setStats(Stat stats) {
+		this.stats = stats;
+	}
+	
 	public void setDamage(int damage) {
-		this.damage = damage;
+		this.stats.setStat(Stat.DAMAGE, damage);
 	}
 	public void setAttack(int attack) {
-		this.attack = attack;
+		this.stats.setStat(Stat.ATTACK, attack);
 	}
 	public void setCriticalChance(int critical_chance) {
-		this.critical_chance = critical_chance;
+		this.stats.setStat(Stat.CRITICAL_CHANCE, critical_chance);
 	}
 	public void setCriticalDamage(int critical_damage) {
-		this.critical_damage = critical_damage;
+		this.stats.setStat(Stat.CRITICAL_DAMAGE, critical_damage);
 	}
 	public void setHealth(int health) {
-		this.health = health;
+		this.stats.setStat(Stat.HEALTH, health);
 	}
 	public void setDefense(int defense) {
-		this.defense = defense;
+		this.stats.setStat(Stat.DEFENSE, defense);
 	}
 	public void setSpeed(int speed) {
-		this.speed = speed;
+		this.stats.setStat(Stat.SPEED, speed);
 	}
 	public void setSolaris(int solaris) {
-		this.solaris = solaris;
+		this.stats.setStat(Stat.SOLARIS, solaris);
 	}
 	
 	// END FO SETTERS OF STATS
@@ -172,31 +171,31 @@ public class ItemObject {
 	}
 	
 	private String getStatsAsLore() {
-		String stats = "§7Stats:\n";
-		if(damage > 0) {
-			stats += "§7  Damage: §c" + damage + "\n";
+		String statsString = "§7Stats:\n";
+		if(stats.getStat(Stat.DAMAGE) > 0) {
+			statsString += "§7  Damage: §c" + stats.getStat(Stat.DAMAGE) + "\n";
 		}
-		if(attack > 0) {
-			stats += "§7  Attack: §c" + attack + "\n";
+		if(stats.getStat(Stat.ATTACK) > 0) {
+			statsString += "§7  Attack: §c" + stats.getStat(Stat.ATTACK) + "\n";
 		}
-		if(critical_chance > 0) {
-			stats += "§1  Critical Chance: §3" + critical_chance + "\n";
+		if(stats.getStat(Stat.CRITICAL_CHANCE) > 0) {
+			statsString += "§1  Critical Chance: §3" + stats.getStat(Stat.CRITICAL_CHANCE) + "\n";
 		}
-		if(critical_damage > 0) {
-			stats += "§1  Critical Damage: §3" + critical_damage + "\n";
+		if(stats.getStat(Stat.CRITICAL_DAMAGE) > 0) {
+			statsString += "§1  Critical Damage: §3" + stats.getStat(Stat.CRITICAL_DAMAGE) + "\n";
 		}
-		if(health > 0) {
-			stats += "§2  Health: §a" + health + "\n";
+		if(stats.getStat(Stat.HEALTH) > 0) {
+			statsString += "§2  Health: §a" + stats.getStat(Stat.HEALTH) + "\n";
 		}
-		if(defense > 0) {
-			stats += "§2  Defense: §a" + defense + "\n";
+		if(stats.getStat(Stat.DEFENSE) > 0) {
+			statsString += "§2  Defense: §a" + stats.getStat(Stat.DEFENSE) + "\n";
 		}
-		if(speed > 0) {
-			stats += "§e  Speed: §f" + speed + "\n";
+		if(stats.getStat(Stat.SPEED) > 0) {
+			statsString += "§e  Speed: §f" + stats.getStat(Stat.SPEED) + "\n";
 		}
-		if(solaris > 0) {
-			stats += "§b  Solaris: §5" + solaris + "\n";
+		if(stats.getStat(Stat.SOLARIS) > 0) {
+			statsString += "§b  Solaris: §5" + stats.getStat(Stat.SOLARIS) + "\n";
 		}
-		return stats;
+		return statsString;
 	}
 }
