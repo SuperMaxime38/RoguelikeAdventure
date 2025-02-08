@@ -37,6 +37,7 @@ public class EntityStats {
 	}
 	
 	public EntityStats(HashMap<Integer, Integer> stats) {
+		init();
 		this.stats = stats;
 		
 	}
@@ -52,11 +53,60 @@ public class EntityStats {
 		stats.put(stat, value);
 	}
 	
+	//Custom setters
+	public void setHealth(int health) {
+		if(health > stats.get(MAX_HEALTH)) {
+			stats.put(HEALTH, stats.get(MAX_HEALTH));
+		} else {
+			stats.put(HEALTH, health);
+		}
+	}
+	
+	public void addHealth(int health) {
+		if(stats.get(HEALTH) + health > stats.get(MAX_HEALTH)) {
+			stats.put(HEALTH, stats.get(MAX_HEALTH));
+		} else {
+			stats.put(HEALTH, stats.get(HEALTH) + health);
+		}
+	}
+	
+	public void removeHealth(int health) {
+		if(stats.get(HEALTH) - health < 0) {
+			stats.put(HEALTH, 0);
+		} else {
+			stats.put(HEALTH, stats.get(HEALTH) - health);
+		}
+	}
+	
+	public void setSolaris(int solaris) {
+		if(solaris > stats.get(MAX_SOLARIS)) {
+			stats.put(SOLARIS, stats.get(MAX_SOLARIS));
+		} else {
+			stats.put(SOLARIS, solaris);
+		}
+	}
+	
+	public void addSolaris(int solaris) {
+		if(stats.get(SOLARIS) + solaris > stats.get(MAX_SOLARIS)) {
+			stats.put(SOLARIS, stats.get(MAX_SOLARIS));
+		} else {
+			stats.put(SOLARIS, stats.get(SOLARIS) + solaris);
+		}
+	}
+	
+	public void removeSolaris(int solaris) {
+		if(stats.get(SOLARIS) - solaris < 0) {
+			stats.put(SOLARIS, 0);
+		} else {
+			stats.put(SOLARIS, stats.get(SOLARIS) - solaris);
+		}
+	}
+	
 	public int getStat(int stat) {
 		return stats.get(stat);
 	}
 	
-	private void init() {
+	private void init() { //DEFAULT VALUES ARE DEFAULT PLAYER STATS
 		stats.put(HEALTH, 100);
 		stats.put(DEFAULT_HEALTH, 100);
 		stats.put(MAX_HEALTH, 100);

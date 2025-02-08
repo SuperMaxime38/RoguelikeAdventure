@@ -1,33 +1,46 @@
 package fr.poutrecosmique.roguelike.entities;
 
-import org.bukkit.attribute.Attribute;
+import java.util.HashMap;
+
 import org.bukkit.entity.LivingEntity;
+
+import fr.poutrecosmique.roguelike.items.ItemObject;
 
 public class Mob {
 	
 	public LivingEntity entity;
 	
-	public int default_health;
-	public int max_health;
-	public int health;
+	EntityStats stats;
 	
+	public HashMap<Integer, ItemObject> items = new HashMap<Integer, ItemObject>(); // associe un item slot à un item
 	
 	
 	public Mob(LivingEntity entity) {
 		this.entity = entity;
-		this.default_health = (int) entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
-		this.max_health = this.default_health;
-		this.health = this.default_health;
+		
+		this.stats = new EntityStats();
 	}
 	
 	public void setDefaultHealth(int health) {
-		this.default_health = health;
-		if(this.default_health > this.max_health) {
-			this.max_health = this.default_health;
+		this.stats.setStat(EntityStats.DEFAULT_HEALTH, health);
+		if(this.stats.getStat(EntityStats.DEFAULT_HEALTH) > this.stats.getStat(EntityStats.MAX_HEALTH)) {
+			this.stats.setStat(EntityStats.MAX_HEALTH, this.stats.getStat(EntityStats.DEFAULT_HEALTH));
 		}
 	}
 	
-	public void setMaxHealth(int health) {
-		this.max_health = health;
+	public void setItem(Integer slot, ItemObject item) {
+		items.put(slot, item);
 	}
+	
+	public void regen() {
+		int value = (this.stats.getStat(EntityStats.MAX_HEALTH)/100 + 2);
+		this.stats.addHealth(value);
+	}
+	
+	//Custom getters
+
+	public int getEffectiveDamage(ItemObject item) {
+		return 0;
+	}
+	
 }
