@@ -1,11 +1,16 @@
 package fr.poutrecosmique.roguelike.listeners;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import fr.poutrecosmique.roguelike.RoguelikeAdventure;
+import fr.poutrecosmique.roguelike.entities.Mob;
 import fr.poutrecosmique.roguelike.entities.player.MobPlayer;
 import fr.poutrecosmique.roguelike.items.armor.noob_set.NoobHelmet;
 import fr.poutrecosmique.roguelike.items.melee.NoobSword;
@@ -20,7 +25,7 @@ public class JoinListener implements Listener{
 	
 
 	@EventHandler
-	public static void onJoin(PlayerJoinEvent e) {
+	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		MobPlayer player = new MobPlayer(p);
 		
@@ -39,13 +44,16 @@ public class JoinListener implements Listener{
 		}
 		
 		p.updateInventory();
-		main.entityHandler.addEntity(player);
+		main.entityHandler.addPlayer(player);
 	}
 	
 	@EventHandler
-	public static void onLeave(PlayerJoinEvent e) {
+	public void onLeave(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
-		main.entityHandler.removeEntity(p);
+		Mob player = main.entityHandler.getPlayer(p);
+		List<Mob> toRemove = new ArrayList<Mob>();
+		toRemove.add(player);
+		main.entityHandler.players.removeAll(toRemove);
 	}
 
 }

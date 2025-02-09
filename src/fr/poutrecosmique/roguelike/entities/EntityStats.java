@@ -70,12 +70,18 @@ public class EntityStats {
 		}
 	}
 	
-	public void removeHealth(int health) {
+	public boolean removeHealth(int health) {
+		/**
+		 * Returns true if the entity is dead
+		 * + remove the damages ofc
+		 */
 		if(stats.get(HEALTH) - health < 0) {
 			stats.put(HEALTH, 0);
-		} else {
-			stats.put(HEALTH, stats.get(HEALTH) - health);
+			return true;
 		}
+
+		stats.put(HEALTH, stats.get(HEALTH) - health);
+		return false;
 	}
 	
 	public void setSolaris(int solaris) {

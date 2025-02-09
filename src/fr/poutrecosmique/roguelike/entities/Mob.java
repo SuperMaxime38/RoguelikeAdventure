@@ -28,19 +28,40 @@ public class Mob {
 		}
 	}
 	
-	public void setItem(Integer slot, ItemObject item) {
+	public ItemObject getItem(int slot) {
+		System.out.println(items.toString());
+		if(items.containsKey(slot)) return items.get(slot);
+		return new ItemObject();
+	}
+	
+	public void setItem(int slot, ItemObject item) {
 		items.put(slot, item);
 	}
 	
-	public void regen() {
-		int value = (this.stats.getStat(EntityStats.MAX_HEALTH)/100 + 2);
-		this.stats.addHealth(value);
+	public void setStats(EntityStats stats) {
+		this.stats = stats;
+	}
+	
+	//Getters
+	public EntityStats getStats() {
+		return this.stats;
 	}
 	
 	//Custom getters
 
 	public int getEffectiveDamage(ItemObject item) {
 		return 0;
+	}
+	
+	// Functions
+	
+	public void regen() {
+		int value = (this.stats.getStat(EntityStats.MAX_HEALTH)/100 + 2);
+		this.stats.addHealth(value);
+	}
+	
+	public boolean damage(int value) {
+		return this.stats.removeHealth(value);
 	}
 	
 }

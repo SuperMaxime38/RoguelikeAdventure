@@ -4,9 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import fr.poutrecosmique.roguelike.utils.Stat;
 
@@ -47,6 +49,9 @@ public class ItemObject {
 	}
 	
 	public void setItemStack(ItemStack item) {
+		meta = item.getItemMeta();
+		meta.getPersistentDataContainer().set(NamespacedKey.fromString("identifier"), PersistentDataType.INTEGER, this.itemIdentifier);
+		item.setItemMeta(meta);
 		this.itemStack = item;
 	}
 	
@@ -137,6 +142,10 @@ public class ItemObject {
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	public Stat getStats() {
+		return this.stats;
 	}
 	
 	// PRIVATE
